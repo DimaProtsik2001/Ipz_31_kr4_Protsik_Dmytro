@@ -77,6 +77,44 @@ fun TaskListItem(task: Task, onTaskClick: (Task) -> Unit) {
         )
     }
 }
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun TaskDetailsScreen(task: Task, onTaskDoneClick: (Task) -> Unit, onBackClick: () -> Unit) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(task.title) },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "Назад")
+                    }
+                }
+            )
+        },
+        content = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Spacer(modifier = Modifier.height(60.dp))
+                Text(text = task.description)
+                Text(text = task.date)
+                Text(text = task.status.name)
+                if (task.status == TaskStatus.ACTIVE) {
+                    Button(
+                        onClick = { onTaskDoneClick(task) },
+                        enabled = task.status == TaskStatus.ACTIVE
+                    ) {
+                        Text("Done")
+                    }
+                }
+            }
+        }
+    )
+}
 @Composable
 fun MyApp() {
     val tasks = remember { mutableStateListOf(
