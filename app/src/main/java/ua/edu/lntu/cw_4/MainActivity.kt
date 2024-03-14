@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-    }
+enum class TaskStatus {
+    ACTIVE,
+    DONE
 }
