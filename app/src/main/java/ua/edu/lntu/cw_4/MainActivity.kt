@@ -40,6 +40,28 @@ data class Task(
     val date: String,
     val status: TaskStatus
 )
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun TaskListScreen(tasks: List<Task>, onTaskClick: (Task) -> Unit) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Список Завдань") }
+            )
+        }
+    ) {
+        LazyColumn {
+            item {
+                Spacer(modifier = Modifier.height(60.dp))
+            }
+
+            items(tasks) { task ->
+                TaskListItem(task = task, onTaskClick = onTaskClick)
+            }
+        }
+    }
+}
 @Composable
 fun MyApp() {
     val tasks = remember { mutableStateListOf(
