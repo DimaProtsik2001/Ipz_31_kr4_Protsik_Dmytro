@@ -53,5 +53,22 @@ fun MyApp() {
     var currentScreen by remember { mutableStateOf("TaskList") }
     var selectedTask by remember { mutableStateOf<Task?>(null) }
 
+    when (currentScreen) {
+        "TaskList" -> TaskListScreen(tasks = tasks) { task ->
+            selectedTask = task
+            currentScreen = "TaskDetails"
+        }
+        "TaskDetails" -> selectedTask?.let { task ->
+            TaskDetailsScreen(task = task, onTaskDoneClick = { updatedTask ->
+                val index = tasks.indexOfFirst { it.id == updatedTask.id }
+                if (index != -1) {
+                    tasks[index] = updatedTask.copy(status = TaskStatus.DONE)
+                    currentScreen = "TaskList"
+                }
+            }, onBackClick = {
+                currentScreen = "TaskList"
+            })
+        }
+    }
 
 }
