@@ -33,3 +33,10 @@ enum class TaskStatus {
     ACTIVE,
     DONE
 }
+data class Task(
+    val id: Int,
+    val title: String,
+    val description: String,
+    val date: String,
+    val status: TaskStatus
+)
