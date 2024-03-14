@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    MyApp()
                 }
             }
         }
@@ -40,3 +40,18 @@ data class Task(
     val date: String,
     val status: TaskStatus
 )
+@Composable
+fun MyApp() {
+    val tasks = remember { mutableStateListOf(
+        Task(1, "Задача номер 1", "Опис задачі номер 1", "2024-03-21", TaskStatus.ACTIVE),
+        Task(2, "Задача номер 2", "Опис задачі номер 2", "2024-04-06", TaskStatus.DONE),
+        Task(3, "Задача номер 3", "Опис задачі номер 3", "2024-05-18", TaskStatus.ACTIVE),
+        Task(4, "Задача номер 4", "Опис задачі номер 4", "2024-06-01", TaskStatus.DONE),
+        Task(5, "Задача номер 5", "Опис задачі номер 5", "2024-07-30", TaskStatus.ACTIVE)
+    ) }
+
+    var currentScreen by remember { mutableStateOf("TaskList") }
+    var selectedTask by remember { mutableStateOf<Task?>(null) }
+
+
+}
